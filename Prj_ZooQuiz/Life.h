@@ -19,10 +19,15 @@ public:
 	~Life() {}
 
 	std::string getName(void) const { return m_name; }
+
 	LifeType getType(void) const { return m_nType; }
+
 	std::string getSciName(void) const { return m_sciName; }
+
 	std::string getFamily(void) const { return m_family; }
+
 	std::string getHome(void) const { return m_home; }
+
 	void setParam(const std::string& name, LifeType nType, const std::string& sciName, const std::string& family, const std::string& home)
 	{
 		m_name = name;

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="Animal.h" />
     <ClInclude Include="Life.h" />
+    <ClInclude Include="Panda.h" />
     <ClInclude Include="Plant.h" />
   </ItemGroup>
   <ItemGroup>
