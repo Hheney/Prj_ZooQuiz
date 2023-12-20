@@ -15,6 +15,7 @@
 #include "Merigold.h"		//메리골드
 #include "Sunflower.h"		//해바라기
 
+//#define NUM_FILES (10) //총 파일의 갯수
 #define NUM_QUEST (5) //과제에서는 5개 임시로 2개설정
 #define NUM_ANS (3)
 
@@ -47,10 +48,12 @@ protected:
 private:
 
 	//필드
+	
+
 	std::string m_animalQuizFile;
 	std::string m_plantQuizFile;
+	//QuizQna m_animalQuiz[NUM_FILES][NUM_QUEST];
 	QuizQna m_animalQuiz[NUM_QUEST];
-
 
 	//메소드
 	void loadOneQuiz(std::ifstream& file, int nPos); //file을 읽어서 m_animalQuiz [nPos] 위치에 문제와 보기를 채워넣음
@@ -62,11 +65,14 @@ inline void ZooQuiz::loadQuizFile(void)
 	using namespace std;
 	
 	ifstream file(m_animalQuizFile);
+
 	for (int i = 0; i < NUM_QUEST; i++)
 	{
 		loadOneQuiz(file, i);
 	}
 	
+	PrintOneQuiz(1);
+
 	//vector<string> QuizFiles = { "판다 문제.txt", "닭 문제.txt" };
 	/*
 	for (const auto& filename : QuizFiles)
@@ -76,7 +82,6 @@ inline void ZooQuiz::loadQuizFile(void)
 		loadOneQuiz(file);
 	}
 	*/
-	PrintOneQuiz();
 
 	/*
 	//동물 퀴즈
@@ -177,4 +182,5 @@ inline void ZooQuiz::PrintOneQuiz(int nPos)
 	cout << m_animalQuiz[nPos].arAns[0] << endl;
 	cout << m_animalQuiz[nPos].arAns[1] << endl;
 	cout << m_animalQuiz[nPos].arAns[2] << endl;
+	
 }

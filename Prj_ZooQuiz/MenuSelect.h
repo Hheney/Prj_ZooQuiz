@@ -22,7 +22,6 @@ class MenuSelect : public ZooQuiz
 {
 public:
 
-	ZooQuiz zooquiz;
 
 	MenuSelect(void) {
 		nXPosition = DEF_X_COORD;	//디폴트 X좌표값으로 초기화
@@ -112,6 +111,10 @@ inline void MenuSelect::Menu(void)
 
 		case 2:
 			//Zoo Quiz : 문제 10개를 무작위로 출력, 보기 3개도 무작위로 출력
+			//퀴즈 문제를 작성하려 하였으나, 다발적인 버그와 능력의 한계로 작성하지 못함.
+			//loadQuizFile();
+
+			PrintOneQuiz(2);
 			break;
 
 		case 3:
