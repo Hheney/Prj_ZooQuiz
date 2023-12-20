@@ -2,6 +2,10 @@
 
 #include <fstream>
 #include "Panda.h"
+#include "Chicken.h"
+#include "Giraffe.h"
+#include "Killerwhale.h"
+#include "Wolf.h"
 
 #define NUM_QUEST (5) //과제에서는 5개 임시로 2개설정
 #define NUM_ANS (3)

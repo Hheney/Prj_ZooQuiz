@@ -30,12 +30,30 @@
     <ClInclude Include="ZooQuiz.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Giraffe.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Wolf.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Killerwhale.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Chicken.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSelect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ZooQuizGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ZooQuiz.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Prj_ZooQuizGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
