@@ -3,9 +3,10 @@
 #include <Windows.h>
 #include <conio.h>
 #include <vector>
-#include "ZooQuiz.h"
 #include "LibConsole.hpp"	//콘솔 출력 색깔 선택
 #include "LibGameTool.hpp"	//난수 처리 기능
+
+#include "ZooQuiz.h"
 
 //콘솔 중앙정렬 위치
 #define DEF_X_COORD (46)			//디폴트 X좌표 값
@@ -24,7 +25,8 @@ public:
 	ZooQuiz zooquiz;
 
 	MenuSelect(void) {
-		nXPosition = DEF_X_COORD;
+		nXPosition = DEF_X_COORD;	//디폴트 X좌표값으로 초기화
+		nYPosition = DEF_Y_COORD;	//디폴트 Y좌표값으로 초기화
 	}
 
 	~MenuSelect() {
@@ -32,43 +34,42 @@ public:
 	}
 
 	//setter
-	void setXPos(int nXPos) //콘솔 X좌표값 설정 메소드
-	{
-		nXPosition = nXPos;
-	}
-
-	void setYPos(int nYPos) //콘솔 Y좌표값 설정 메소드
-	{
-		nYPosition = nYPos;
-	}
+	void setXPos(int nXPos) { nXPosition = nXPos; } //콘솔 Y좌표값 설정 메소드
+	void setYPos(int nYPos) { nYPosition = nYPos; } //콘솔 Y좌표값 설정 메소드
 
 	//getter
-	int getXPos(void) const { return nXPosition; }
-	int getYPos(void) const { return nYPosition; }
+	int getXPos(void) const { return nXPosition; }	//X좌표값 추출 메소드
+	int getYPos(void) const { return nYPosition; }	//Y좌표값 추출 메소드
 
-	void Menu(void);							//메뉴 출력 및 선택 주기능 메소드
-	void InputUserName(void);					//사용자 이름을 입력받는 메소드
+	void Menu(void);				//메뉴 출력 및 선택 주기능 메소드
+	void InputUserName(void);		//사용자 이름을 입력받는 메소드
 
 private:
+
+	//필드
+	int nXPosition = 0,
+		nYPosition = 0;
 
 	std::string strUserName;	//사용자 이름
 	std::string strStartLogo;	//시작로고
 	std::string strEndLogo;		//종료로고
 	std::string strTitle;		//제목로고
 
+	//메소드
+	void MenuPrint(void);					//메뉴 출력 메소드
+	void InitXYPos(void);					//X, Y좌표 초기화 메소드
+	void GotoXY(int nXPos, int nYPos);		//콘솔화면 커서 좌표이동 함수
+	int InputKey(void);						//WASD키 입력 메소드
+	int MoveORSelect(void);					//메뉴 이동 및 선택 메소드
 
-	int nXPosition = DEF_X_COORD, nYPosition = DEF_Y_COORD;
+	//통계 관련 메소드
+	void DisplayStats(void);
 
-	void MenuPrint(void);						//메뉴 출력 메소드
-	void InitXYPos(void);						//X, Y좌표 초기화 메소드
-	void GotoXY(int nXPos, int nYPos);			//콘솔화면 커서 좌표이동 함수
-	int InputKey(void);							//WASD키 입력 메소드
-	int MoveORSelect(void);						//메뉴 이동 및 선택 메소드
+	//UI 관련 메소드
 	void PrintDot(int nDot);					//로딩, 종료시 점을 출력하는 메소드
 	void TitlePrint(std::ifstream& file);		//프로그램 제목 출력 메소드
 	void StartLogoPrint(std::ifstream& file);	//Start 메시지 출력 메소드
 	void EndLogoPrint(std::ifstream& file);		//End 메시지 출력 메소드
-
 
 protected:
 };
@@ -76,10 +77,8 @@ protected:
 inline void MenuSelect::Menu(void)
 {
 	using namespace std;
-
 	ifstream StartLogoFile("StartLogo.txt");
 	ifstream EndLogoFile("EndLogo.txt");
-	ifstream TitleFile("Title.txt");
 
 	StartLogoPrint(StartLogoFile); //시작 로고 출력
 	system("cls");
@@ -89,18 +88,26 @@ inline void MenuSelect::Menu(void)
 
 	while (1)
 	{
-		InitXYPos(); //XY좌표값 초기화
+		ifstream TitleFile("Title.txt");
+
+		InitXYPos();			//XY좌표값 초기화
 		TitlePrint(TitleFile);	//타이틀화면 출력
-		MenuPrint(); //메뉴 출력
+		MenuPrint();			//메뉴 출력
 
 		switch (MoveORSelect())
 		{
 		case 0:
 			//동물 공부: 동물 5종의 정보 출력
+			system("cls");
+			PrintAnimalInfo();
+			system("Pause");
 			break;
 
 		case 1:
 			//식물 공부 : 식물 5종의 정보 출력
+			system("cls");
+			PrintPlantInfo();
+			system("Pause");
 			break;
 
 		case 2:
@@ -109,6 +116,12 @@ inline void MenuSelect::Menu(void)
 
 		case 3:
 			//게임 통계: 문제별 정답률, 득점, 플레이 시간 출력
+			system("cls");
+			InitXYPos();
+			GotoXY(nXPosition, nYPosition - 5);
+			cout << "게임 통계" << endl;
+			//LoadStats(OpenFile); //저장된 통계 불러오기
+			DisplayStats();		 //불러온 통계 출력
 			break;
 
 		case 4:
@@ -252,6 +265,24 @@ inline int MenuSelect::MoveORSelect(void)
 			break;
 		}
 	}
+}
+
+inline void MenuSelect::DisplayStats(void)
+{
+	using namespace std;
+	using namespace mglib;
+
+	settextcol(GREEN);
+
+	cout << endl << "\t\t\t\t\t사용자 이름\t:" << strUserName << endl;
+	//cout << "\t\t\t\t\t플레이 난이도\t:" << nSelectDiff << "Lv." << endl;
+	//cout << "\t\t\t\t\t정답 비율\t:" << correctRatio << '%' << endl;
+	//cout << "\t\t\t\t\t평균 풀이 속도\t:" << avgCalcTime << " 초" << endl;
+
+	settextcol(RED);
+	GotoXY(nXPosition - 13, nYPosition + 7);
+
+	system("PAUSE");
 }
 
 inline void MenuSelect::PrintDot(int nDot)

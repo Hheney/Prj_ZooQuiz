@@ -128,13 +128,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h" />
+    <ClInclude Include="Chamomile.h" />
     <ClInclude Include="Chicken.h" />
+    <ClInclude Include="Cherryblossom.h" />
     <ClInclude Include="Giraffe.h" />
     <ClInclude Include="Killerwhale.h" />
     <ClInclude Include="Life.h" />
+    <ClInclude Include="Lilac.h" />
     <ClInclude Include="MenuSelect.h" />
+    <ClInclude Include="Merigold.h" />
     <ClInclude Include="Panda.h" />
     <ClInclude Include="Plant.h" />
+    <ClInclude Include="Sunflower.h" />
     <ClInclude Include="Wolf.h" />
     <ClInclude Include="ZooQuiz.h" />
   </ItemGroup>
