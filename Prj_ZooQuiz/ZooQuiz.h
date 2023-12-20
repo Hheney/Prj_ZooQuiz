@@ -36,6 +36,8 @@ public:
 	void loadQuizFile(void);
 	void play(void);
 	
+	void PrintOneQuiz(int nPos);
+
 protected:
 
 	//메소드
@@ -59,23 +61,36 @@ inline void ZooQuiz::loadQuizFile(void)
 {
 	using namespace std;
 	
-	//동물 퀴즈
 	ifstream file(m_animalQuizFile);
-	//cout << file.is_open() << endl; //파일 열기 성공여부
+	for (int i = 0; i < NUM_QUEST; i++)
+	{
+		loadOneQuiz(file, i);
+	}
+	
+	//vector<string> QuizFiles = { "판다 문제.txt", "닭 문제.txt" };
+	/*
+	for (const auto& filename : QuizFiles)
+	{
+		ifstream file(filename);
 
-	loadOneQuiz(file, 1);
+		loadOneQuiz(file);
+	}
+	*/
+	PrintOneQuiz();
 
 	/*
+	//동물 퀴즈
+	ifstream file(m_animalQuizFile);
+	
 	for (int i = 0; i < NUM_QUEST; i++)
 	{
 		loadOneQuiz(file, i);
 	}*/
-
 }
 
 inline void ZooQuiz::play(void)
 {
-
+	using namespace std;
 }
 
 inline void ZooQuiz::PrintAnimalInfo(void)
@@ -131,40 +146,35 @@ inline void ZooQuiz::loadOneQuiz(std::ifstream& file, int nPos)
 	using namespace std;
 
 	//문제 읽기
-
 	string str;
 
 	while (1)
 	{
 		getline(file, str);
 
-		if (str == "===")
-		{
-			break;
-		}
-		else if (file.eof()) //eof: end of file(파일의 끝, eof 함수는 EOF를 만나면 true를 반환)
-		{
-			break;
-		}
+		if (str == "===") break;
+
+		else if (file.eof()) break; // eof: end of file(파일의 끝); eof() 함수는 EOF를 만나면 true 반환
 
 		m_animalQuiz[nPos].question += str + "\n";
 	}
-	cout << m_animalQuiz[nPos].question << endl;
 
 	//보기 읽기
-
 	for (int i = 0; i < NUM_ANS; i++)
 	{
 		getline(file, str);
 		m_animalQuiz[nPos].arAns[i] = str;
 	}
 
-	for (string& s : m_animalQuiz[nPos].arAns)
-	{
-		cout << s << endl;
-	}
-	
 	getline(file, str); //"===" 읽기
+}
 
-	cout << endl;
+inline void ZooQuiz::PrintOneQuiz(int nPos)
+{
+	using namespace std;
+
+	cout << m_animalQuiz[nPos].question << endl;
+	cout << m_animalQuiz[nPos].arAns[0] << endl;
+	cout << m_animalQuiz[nPos].arAns[1] << endl;
+	cout << m_animalQuiz[nPos].arAns[2] << endl;
 }

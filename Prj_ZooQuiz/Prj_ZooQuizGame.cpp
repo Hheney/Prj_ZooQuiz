@@ -5,12 +5,12 @@ int main()
 {
 	MenuSelect menu;
 
-	menu.Menu();
-	/*
+	//menu.Menu();
+	
 	ZooQuiz quiz;
 
 	quiz.setAnimalQuizFile("판다 문제.txt");
 	quiz.loadQuizFile();
-	*/
+	
 	return 0;
 }
