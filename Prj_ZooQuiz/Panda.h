@@ -19,5 +19,5 @@ inline Panda::Panda(void)
 
 	m_food = "대나무";	//먹이
 	m_isPet = false;		
-	m_voice = "???";
+	m_voice = "다양한 소리를 낸다";
 }

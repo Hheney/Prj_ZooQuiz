@@ -12,21 +12,30 @@ class Life
 {
 public:
 	Life(void) {}
+
+	//생물 생성자
 	Life(const std::string& name, LifeType nType, const std::string& sciName, const std::string& family, const std::string& home)
 	{
 		setParam(name, nType, sciName, family, home);
 	}
-	~Life() {}
 
+	~Life() {}
+	
+	//이름
 	std::string getName(void) const { return m_name; }
 
+	//유형
 	LifeType getType(void) const { return m_nType; }
 
+	//학명
 	std::string getSciName(void) const { return m_sciName; }
 
+	//분류
 	std::string getFamily(void) const { return m_family; }
 
+	//서식지
 	std::string getHome(void) const { return m_home; }
+
 
 	void setParam(const std::string& name, LifeType nType, const std::string& sciName, const std::string& family, const std::string& home)
 	{
